@@ -22,6 +22,9 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".Activitys.Assignment"></activity>
+        <activity android:name=".Activitys.AttendsEnter" />
+        <activity android:name=".Activitys.SubjectDetilsActivity" />
     </application>
 
 </manifest>
