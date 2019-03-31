@@ -23,8 +23,9 @@
 
         </activity>
         <activity android:name=".Activitys.Assignment"></activity>
-        <activity android:name=".Activitys.AttendsEnter" />
         <activity android:name=".Activitys.SubjectDetilsActivity" />
+        <activity android:name=".Activitys.Admin" />
+        <activity android:name=".Activitys.MainActivity" />
     </application>
 
 </manifest>

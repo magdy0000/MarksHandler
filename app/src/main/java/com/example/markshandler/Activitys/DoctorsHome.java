@@ -36,14 +36,10 @@ public class DoctorsHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors_home);
 
-
-
-
-
-
-
         nameSubject = findViewById(R.id.name_subject);
+
         nameSubject.setText("OS");
+
         code = findViewById(R.id.code_editText);
         onAndOff = findViewById(R.id.on_of_btn);
         get = findViewById(R.id.get_btn);

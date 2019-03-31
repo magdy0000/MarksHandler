@@ -32,10 +32,10 @@ public class UserHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_home);
+        setContentView(R.layout.activity_attends_enter);
 
 
-        codeFormStudent = findViewById(R.id.St_code);
+        codeFormStudent = findViewById(R.id.code_of_attend);
 
 
 
@@ -71,8 +71,6 @@ public class UserHome extends AppCompatActivity {
 
      }
     public void confirm(View view) {
-
-
 
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -199,6 +197,7 @@ public class UserHome extends AppCompatActivity {
 
 
                     ref.child("OS").child("count").child(Login.userID).child("count").setValue("1");
+                    ref.child("OS").child("count").child(Login.userID).child("userName").setValue(Login.userName);
 
 
                 }

@@ -16,7 +16,9 @@ public class Login extends AppCompatActivity {
     EditText passlogin;
     Button login;
 
-   public  static    String userID , userName  ;
+
+
+   public  static  String userID , userName  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,15 @@ public class Login extends AppCompatActivity {
 
             Intent admin=new Intent(this,Admin.class);
             startActivity(admin);
+
         }
 
         else if(idlogin.getText().toString().equals("2")){
 
             Intent user=new Intent(this,MainActivity.class);
             startActivity(user);
+            userID = "1";
+            userName = "Magdy";
         }
 
         else{

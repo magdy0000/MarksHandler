@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.markshandler.Activitys.Assignment;
-import com.example.markshandler.Activitys.AttendsEnter;
+import com.example.markshandler.Activitys.UserHome;
 import com.example.markshandler.R;
 
 
@@ -46,7 +46,7 @@ public class LectureFragment extends Fragment {
         attend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AttendsEnter.class);
+                Intent i = new Intent(getActivity(), UserHome.class);
                 startActivity(i);
             }
         });
