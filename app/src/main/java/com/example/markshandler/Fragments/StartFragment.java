@@ -10,19 +10,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.markshandler.Activitys.Assignment;
+import com.example.markshandler.Activitys.DoctorsHome;
 import com.example.markshandler.Activitys.UserHome;
 import com.example.markshandler.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SectionFragment extends Fragment {
+public class StartFragment extends Fragment {
 
     LinearLayout assignment;
     LinearLayout attend;
 
-    public SectionFragment() {
+    public StartFragment() {
         // Required empty public constructor
     }
 
@@ -30,15 +30,15 @@ public class SectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_lecture, container, false);
-
+        // Inflate the layout for this fragment
+        View view= inflater.inflate(R.layout.fragment_start, container, false);
         assignment=view.findViewById(R.id.assi_layout);
         attend=view.findViewById(R.id.atte_layout);
 
         assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), Assignment.class);
+                Intent i = new Intent(getActivity(), DoctorsHome.class);
                 startActivity(i);
             }
         });
@@ -46,11 +46,10 @@ public class SectionFragment extends Fragment {
         attend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), UserHome.class);
+                Intent i = new Intent(getActivity(), DoctorsHome.class);
                 startActivity(i);
             }
         });
-
         return view;
     }
 

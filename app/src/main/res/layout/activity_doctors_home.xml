@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/DarkBlue"
     android:orientation="vertical"
     tools:context=".Activitys.DoctorsHome">
 
@@ -22,6 +21,7 @@
         android:id="@+id/code_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/back_ground_edit_text"
         android:layout_margin="30dp"
         />
     <Button
@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@drawable/back_ground_regist_button"
         android:text="get "
 
 
@@ -37,11 +38,12 @@
     <Button
         android:visibility="gone"
         android:onClick="AttendControl"
+        android:layout_marginTop="10dp"
         android:id="@+id/on_of_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text=""
+        android:background="@drawable/back_ground_regist_button_red"
         />
 
 

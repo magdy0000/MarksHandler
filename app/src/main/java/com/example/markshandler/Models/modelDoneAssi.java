@@ -1,9 +1,9 @@
 package com.example.markshandler.Models;
 
-public class modelAdmin {
+public class modelDoneAssi {
     public String textgrid ;
 
-    public modelAdmin(String x) {
+    public modelDoneAssi(String x) {
 
         this.textgrid = x ;
 

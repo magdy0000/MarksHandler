@@ -7,20 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.markshandler.Models.modelAdmin;
+import com.example.markshandler.Models.modelDoneAssi;
 import com.example.markshandler.R;
 
 import java.util.ArrayList;
 
-public class Adapteradmin extends ArrayAdapter {
+public class AdapterDoneAssi extends ArrayAdapter {
 
 
 
-        ArrayList<modelAdmin> mlist;
+        ArrayList<modelDoneAssi> mlist;
 
-        public Adapteradmin(@NonNull Context context, int resource, @NonNull ArrayList objects) {
+        public AdapterDoneAssi(@NonNull Context context, int resource, @NonNull ArrayList objects) {
             super(context, resource, objects);
 
             mlist = objects;
@@ -32,9 +31,9 @@ public class Adapteradmin extends ArrayAdapter {
 
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = layoutInflater.inflate(R.layout.item_of_listview_admin, parent,false);
+            convertView = layoutInflater.inflate(R.layout.item_listview_doneassi, parent,false);
 
-            TextView textGrid = convertView.findViewById(R.id.text_admin);
+            TextView textGrid = convertView.findViewById(R.id.done_ass);
 
 
             textGrid.setText(mlist.get(position).textgrid);

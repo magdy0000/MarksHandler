@@ -2,62 +2,76 @@ package com.example.markshandler.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.markshandler.Adapters.Adapteradmin;
+import com.example.markshandler.Fragments.AssignmentFragment;
+import com.example.markshandler.Fragments.OldLecturesFragment;
+import com.example.markshandler.Fragments.SectionFragment;
+import com.example.markshandler.Fragments.StartFragment;
 import com.example.markshandler.Models.modelAdmin;
 import com.example.markshandler.R;
 
 import java.util.ArrayList;
 
 public class Admin extends AppCompatActivity {
-    int[] x = {R.drawable.background, R.drawable.background};
-    String []y = {"Ebrahem yousef" , "Magdy mahmoud"};
-    ListView listView ;
-    ArrayList<modelAdmin> list = new ArrayList<>();
 
-    Adapteradmin adapter ;
+
+    Fragment fragment;
+    private FragmentTransaction transaction;
+    Button ass , att ,lec;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        listView = findViewById(R.id.list_view_admin);
 
-        list.add(new modelAdmin(y[0] , x[0]));
-        list.add(new modelAdmin(y[1], x[1]));
+        fragment = new AssignmentFragment();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.doctorFra, fragment, "Med_Data_Fragment");
+        transaction.commitNow();
 
+        ass=findViewById(R.id.assBtnFrag);
+        att=findViewById(R.id.attBtnFrag);
+        lec=findViewById(R.id.lecBtnFrag);
 
-        adapter = new Adapteradmin(this , R.layout.item_of_listview_admin , list);
-
-        listView.setAdapter(adapter);
-        listViewClic();
-
-    }
-    private void listViewClic() {
-
-
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //news and events
-                if (position == 0) {
-                    Intent go = new Intent(Admin.this, DoctorsHome.class);
-                    startActivity(go);
-                    finish();
-                }
-                //about us
-                else if (position == 1) {
-                    startActivity(new Intent(Admin.this, DoctorsHome.class));
-                    finish();
-
-                }
+            public void onClick(View v) {
+                fragment = new AssignmentFragment();
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.doctorFra, fragment, "Med_Data_Fragment");
+                transaction.commitNow();
             }
         });
+
+
+        lec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new OldLecturesFragment();
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.doctorFra, fragment, "Med_Data_Fragment");
+                transaction.commitNow();
+            }
+        });
+
+        att.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new StartFragment();
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.doctorFra, fragment, "Med_Data_Fragment");
+                transaction.commitNow();
+            }
+        });
+
 
 
 
