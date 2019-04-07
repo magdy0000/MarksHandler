@@ -1,19 +1,15 @@
 package com.example.markshandler.Activitys;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.markshandler.Models.DoctorAttend;
+import com.example.markshandler.Models.ModelOfStudentAttend;
 import com.example.markshandler.R;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,9 +22,9 @@ public class UserHome extends AppCompatActivity {
     
     boolean checks ;
 
-    Boolean control1 ;
+    String control1 ;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-    DoctorAttend n = new DoctorAttend();
+    ModelOfStudentAttend n = new ModelOfStudentAttend();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,16 +107,17 @@ public class UserHome extends AppCompatActivity {
 
 
 
-            ref.child("OS").child(codeFormStudent.getText().toString().trim()).child("Attend Control").addListenerForSingleValueEvent( new ValueEventListener() {
+            ref.child("OS Control").child(codeFormStudent.getText().toString().trim()).child("attendControl").addListenerForSingleValueEvent( new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    control1 = (Boolean) dataSnapshot.getValue();
+                    control1 = (String) dataSnapshot.getValue();
 
-                    if (control1) {
+                    if (control1.equals("true")) {
 
-                      DoctorAttend d = new DoctorAttend();
+                      ModelOfStudentAttend d = new ModelOfStudentAttend();
 
+                      d.setIdStudent(Login.userID);
                       d.setUserName(Login.userName);
                       d.setCheckOne("false");
 
@@ -148,7 +145,7 @@ public class UserHome extends AppCompatActivity {
     private void count2 (){
 
 
-        ref.child("OS").child("count").child(Login.userID).child("count").addListenerForSingleValueEvent( new ValueEventListener() {
+        ref.child("OS Count").child("count").child(Login.userID).child("count").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -162,12 +159,12 @@ public class UserHome extends AppCompatActivity {
               z = z + 1 ;
                 String y = String.valueOf(z);
 
-                DoctorAttend d = new DoctorAttend();
+                ModelOfStudentAttend d = new ModelOfStudentAttend();
 
                 d.setUserName(Login.userName);
                 d.setCount(y);
 
-              ref.child("OS").child("count").child(Login.userID).setValue(d);
+              ref.child("OS Count").child("count").child(Login.userID).setValue(d);
 
             }
 
@@ -184,7 +181,7 @@ public class UserHome extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("OS").child("count").hasChild(Login.userID)) {
+                if (dataSnapshot.child("OS Count").child("count").hasChild(Login.userID)) {
 
 
 
@@ -196,8 +193,8 @@ public class UserHome extends AppCompatActivity {
                 } else {
 
 
-                    ref.child("OS").child("count").child(Login.userID).child("count").setValue("1");
-                    ref.child("OS").child("count").child(Login.userID).child("userName").setValue(Login.userName);
+                    ref.child("OS Count").child("count").child(Login.userID).child("count").setValue("1");
+                    ref.child("OS Count").child("count").child(Login.userID).child("userName").setValue(Login.userName);
 
 
                 }

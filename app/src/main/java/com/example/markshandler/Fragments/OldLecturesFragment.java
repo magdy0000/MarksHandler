@@ -3,18 +3,26 @@ package com.example.markshandler.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.markshandler.Activitys.Admin;
-import com.example.markshandler.Activitys.DoctorsHome;
+import com.example.markshandler.Activitys.StudentAttentList;
 import com.example.markshandler.Adapters.Adapteradmin;
-import com.example.markshandler.Models.modelAdmin;
+import com.example.markshandler.Models.DataId;
+import com.example.markshandler.Models.ModelOfAttentListForDoctors;
 import com.example.markshandler.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,11 +31,13 @@ import java.util.ArrayList;
  */
 public class OldLecturesFragment extends Fragment {
 
-    String []y = {"Array lec" , "If statement lec"};
-    ListView listView ;
-    ArrayList<modelAdmin> list = new ArrayList<>();
 
+    ListView listView ;
+    ArrayList<DataId> list = new ArrayList<>();
+     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     Adapteradmin adapter ;
+
+    public static String idLectures ;
 
     public OldLecturesFragment() {
         // Required empty public constructor
@@ -42,37 +52,65 @@ public class OldLecturesFragment extends Fragment {
 
        listView = view.findViewById(R.id.list_view_admin);
 
-        list.add(new modelAdmin(y[0]));
-        list.add(new modelAdmin(y[1]));
 
 
-        adapter = new Adapteradmin(getActivity() , R.layout.item_of_listview_admin , list);
-
-        listView.setAdapter(adapter);
-        listViewClic();
-
-        return view;
-    }
-    private void listViewClic() {
 
 
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      adapter = new Adapteradmin(getContext() , R.layout.item_of_listview_admin , list);
+      listView.setAdapter(adapter);
+
+      listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+              idLectures = list.get(position).getId() ;
+
+
+              Intent intent = new Intent(getContext() , StudentAttentList.class);
+              startActivity(intent);
+              getActivity().finish();
+          }
+      });
+
+
+
+        ref.child("OS Control").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (position == 0) {
-                    Intent go = new Intent(getActivity(), DoctorsHome.class);
-                    startActivity(go);
-                }
-
-                else if (position == 1) {
-                    startActivity(new Intent(getActivity(), DoctorsHome.class));
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    list.add(dataSnapshot1.getValue(DataId.class));
 
                 }
+                adapter.notifyDataSetChanged();
+
+            }
+
+
+
+
+
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
             }
         });
 
+
+
+
+
+
+
+
+
+
+        return view;
     }
 
 }

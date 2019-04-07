@@ -48,8 +48,8 @@ public class Login extends AppCompatActivity {
 
             Intent user=new Intent(this,MainActivity.class);
             startActivity(user);
-            userID = "1";
-            userName = "Magdy";
+            userID = "3";
+            userName = "Ahmed";
         }
 
         else{

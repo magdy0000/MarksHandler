@@ -38,8 +38,10 @@ public class LectureFragment extends Fragment {
         assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(getActivity(), Assignment.class);
                 startActivity(i);
+
             }
         });
 

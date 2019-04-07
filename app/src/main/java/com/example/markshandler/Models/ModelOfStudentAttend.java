@@ -1,13 +1,11 @@
 package com.example.markshandler.Models;
 
-public class DoctorAttend {
+public class ModelOfStudentAttend {
 
     String checkOne ;
     String count ;
+    String idStudent ;
     String userName ;
-
-
-
 
 
 
@@ -20,6 +18,13 @@ public class DoctorAttend {
         this.userName = userName;
     }
 
+    public String getIdStudent() {
+        return idStudent;
+    }
+
+    public void setIdStudent(String idStudent) {
+        this.idStudent = idStudent;
+    }
 
 
     public String getCount() {

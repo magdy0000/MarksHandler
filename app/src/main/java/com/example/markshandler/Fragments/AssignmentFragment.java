@@ -10,11 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.markshandler.Activitys.DoctorsHome;
 import com.example.markshandler.Activitys.StudentFinishAssi;
 import com.example.markshandler.Adapters.OldAssiAdapter;
-import com.example.markshandler.Adapters.OldAssiAdapter;
-import com.example.markshandler.Models.modelAdmin;
 import com.example.markshandler.Models.modelOldAssi;
 import com.example.markshandler.R;
 

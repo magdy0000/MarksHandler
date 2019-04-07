@@ -11,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activitys.StudentFinishAssi"></activity>
-        <activity android:name=".Activitys.DoctorsHome"></activity>
+        <activity android:name=".Activitys.StudentInfo"></activity>
+        <activity android:name=".Activitys.StudentAttentList"></activity>
+        <activity android:name=".Activitys.StudentFinishAssi" />
+        <activity android:name=".Activitys.DoctorsHome" />
         <activity android:name=".Activitys.UserHome" />
         <activity android:name=".Activitys.Login">
             <intent-filter>

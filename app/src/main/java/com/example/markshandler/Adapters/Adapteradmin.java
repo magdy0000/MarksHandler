@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.markshandler.Models.modelAdmin;
+
+import com.example.markshandler.Models.DataId;
 import com.example.markshandler.R;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Adapteradmin extends ArrayAdapter {
 
 
 
-        ArrayList<modelAdmin> mlist;
+        ArrayList<DataId> mlist;
 
         public Adapteradmin(@NonNull Context context, int resource, @NonNull ArrayList objects) {
             super(context, resource, objects);
@@ -36,8 +36,10 @@ public class Adapteradmin extends ArrayAdapter {
 
             TextView textGrid = convertView.findViewById(R.id.text_admin);
 
+           textGrid.setText(mlist.get(position).getId());
 
-            textGrid.setText(mlist.get(position).textgrid);
+
+
 
 
             return convertView;
