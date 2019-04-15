@@ -10,12 +10,6 @@
     android:orientation="vertical"
     tools:context=".Activitys.Login">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        />
-
     <EditText
         android:id="@+id/editText_id"
         android:layout_width="match_parent"
@@ -42,7 +36,7 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="40dp"
+        android:layout_margin="20dp"
         android:background="@drawable/back_ground_regist_button"
         android:text="Login"
         android:textColor="#000"

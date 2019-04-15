@@ -3,16 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/DarkBlue"
     android:padding="40dp"
     android:orientation="vertical"
     tools:context=".Fragments.SectionFragment">
+
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_margin="10dp"
+       android:gravity="center"
+       android:layout_gravity="center_vertical"
+       android:text="The Section"
+       android:textSize="30sp"
+       android:textColor="@color/whit"
+       android:textStyle="bold"
+
+       />
 
    <LinearLayout
        android:id="@+id/atte_layout_sec"
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:background="@color/whit"
+       android:background="@color/DarkOrange"
        android:layout_height="0dp"
        android:layout_margin="10dp"
        android:layout_weight="1">
@@ -29,6 +43,7 @@
           android:layout_height="wrap_content"
           android:layout_margin="10dp"
           android:gravity="center"
+          android:layout_gravity="center_vertical"
           android:text="attendance"
           android:textSize="30dp"
           android:textColor="#000"
@@ -42,7 +57,7 @@
        android:id="@+id/assi_layout_sec"
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:background="@color/whit"
+       android:background="@color/DarkOrange"
        android:layout_height="0dp"
        android:layout_margin="10dp"
        android:layout_weight="1">

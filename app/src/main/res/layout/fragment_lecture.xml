@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/DarkBlue"
     android:padding="40dp"
     android:orientation="vertical"
     tools:context=".Fragments.LectureFragment">
@@ -18,7 +18,7 @@
        android:id="@+id/atte_layout"
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:background="@color/whit"
+       android:background="@color/DarkOrange"
        android:layout_height="0dp"
        android:layout_margin="10dp"
        android:layout_weight="1">
@@ -48,7 +48,7 @@
        android:id="@+id/assi_layout"
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:background="@color/whit"
+       android:background="@color/DarkOrange"
        android:layout_height="0dp"
        android:layout_margin="10dp"
        android:layout_weight="1">

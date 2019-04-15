@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/DarkBlue"
     tools:context=".Activitys.Assignment">
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
         android:layout_margin="20dp"
         android:padding="5dp"
         android:text="@string/the_assi"
-        android:textColor="#000"
+        android:textColor="@color/whit"
         android:textSize="17sp"
         android:layout_marginBottom="30dp"
 
@@ -46,6 +47,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:textColorHint="#DDD8D8"
             android:hint="Enter your answer"
             />
 
@@ -56,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="10dp"
+                android:textColorHint="#DDD8D8"
                 android:hint="notes"
                 />
 
@@ -67,6 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="upload"
+            android:textStyle="bold"
+            android:textSize="17sp"
             android:background="@drawable/back_ground_regist_button"
             android:layout_gravity="right" />
 

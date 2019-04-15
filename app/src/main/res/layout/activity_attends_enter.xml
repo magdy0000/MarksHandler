@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/DarkBlue"
     android:gravity="center_horizontal"
     tools:context=".Activitys.UserHome">
 
@@ -16,7 +17,7 @@
         android:layout_marginTop="70dp"
         android:text="Enter the code"
         android:textSize="40sp"
-        android:textColor="#000"
+        android:textColor="@color/whit"
 
         />
 
@@ -30,6 +31,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="40dp"
+        android:textColorHint="#DDD8D8"
         android:textSize="40sp"
         android:textColor="#000"
         />
@@ -41,6 +43,7 @@
         android:layout_height="wrap_content"
         android:text="Attend"
         android:textSize="17sp"
+        android:textStyle="bold"
         android:background="@drawable/back_ground_regist_button"
         />
 

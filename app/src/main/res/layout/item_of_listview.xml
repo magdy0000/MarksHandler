@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#CCC5C5"
+    android:background="@color/DarkBlue"
     android:layout_marginBottom="5dp"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/name_of_sub"
@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:textSize="15sp"
-        android:textColor="#000"
+        android:textColor="@color/whit"
         />
 
     <TextView
@@ -22,10 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textSize="12sp"
-        android:textColor="#000"
+        android:textColor="@color/whit"
+        android:layout_marginBottom="10dp"
         />
 
 </LinearLayout>
