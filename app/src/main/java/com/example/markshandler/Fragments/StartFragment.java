@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.markshandler.Activitys.Assignment;
 import com.example.markshandler.Activitys.DoctorsHome;
+import com.example.markshandler.Activitys.StartNewAssignment;
 import com.example.markshandler.Activitys.UserHome;
 import com.example.markshandler.R;
 
@@ -38,7 +39,7 @@ public class StartFragment extends Fragment {
         assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), DoctorsHome.class);
+                Intent i = new Intent(getActivity(), StartNewAssignment.class);
                 startActivity(i);
                 getActivity().finish();
 

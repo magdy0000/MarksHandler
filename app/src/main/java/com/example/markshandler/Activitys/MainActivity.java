@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    String []y = {"OS" , "Logic Design"};
-    String[] x = {"",""};
+    String [] y = {"OS" , "Logic Design"};
+    String [] x = {"Dr.Mohamed hussen","Dr.Ahmed mohamed"};
     ListView listView ;
     ArrayList<modeluser> list = new ArrayList<>();
 

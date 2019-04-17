@@ -41,7 +41,6 @@
 
         />
     <Button
-        android:visibility="gone"
         android:onClick="AttendControl"
         android:layout_marginTop="10dp"
         android:id="@+id/on_of_btn"

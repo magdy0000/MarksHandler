@@ -46,12 +46,12 @@ public class StudentFinishAssi extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position == 0) {
-                    Intent go = new Intent(StudentFinishAssi.this, DoctorsHome.class);
+                    Intent go = new Intent(StudentFinishAssi.this, StudentInfo.class);
                     startActivity(go);
                 }
 
                 else if (position == 1) {
-                    startActivity(new Intent(StudentFinishAssi.this, DoctorsHome.class));
+                    startActivity(new Intent(StudentFinishAssi.this, StudentInfo.class));
 
                 }
             }

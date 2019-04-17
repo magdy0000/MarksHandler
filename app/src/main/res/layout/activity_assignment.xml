@@ -74,6 +74,15 @@
             android:textSize="17sp"
             android:background="@drawable/back_ground_regist_button"
             android:layout_gravity="right" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="done"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:background="@drawable/back_ground_regist_button_red"
+            android:layout_gravity="right" />
 
 
 
