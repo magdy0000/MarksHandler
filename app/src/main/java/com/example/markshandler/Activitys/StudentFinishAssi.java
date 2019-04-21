@@ -46,16 +46,23 @@ public class StudentFinishAssi extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position == 0) {
-                    Intent go = new Intent(StudentFinishAssi.this, StudentInfo.class);
-                    startActivity(go);
+
                 }
 
                 else if (position == 1) {
-                    startActivity(new Intent(StudentFinishAssi.this, StudentInfo.class));
+
 
                 }
             }
         });
+
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent m = new Intent(this,Admin.class);
+        startActivity(m);
+
 
     }
 }

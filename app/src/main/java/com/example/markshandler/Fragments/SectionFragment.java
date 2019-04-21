@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.markshandler.Activitys.Assignment;
+import com.example.markshandler.Activitys.AssignmentOfStudent;
 import com.example.markshandler.Activitys.UserHome;
 import com.example.markshandler.R;
 
@@ -38,7 +38,7 @@ public class SectionFragment extends Fragment {
         assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), Assignment.class);
+                Intent i = new Intent(getActivity(), AssignmentOfStudent.class);
                 startActivity(i);
             }
         });

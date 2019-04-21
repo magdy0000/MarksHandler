@@ -13,12 +13,11 @@
         android:id="@+id/name_subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:layout_marginTop="20dp"
-        android:text="Enter the code "
-        android:textColor="@color/whit"
+        android:textSize="20sp"
+        android:textColor="#fff"
         android:layout_gravity="center"
         />
+
 
     <EditText
         android:paddingLeft="5dp"
@@ -41,6 +40,7 @@
 
         />
     <Button
+        android:visibility="gone"
         android:onClick="AttendControl"
         android:layout_marginTop="10dp"
         android:id="@+id/on_of_btn"

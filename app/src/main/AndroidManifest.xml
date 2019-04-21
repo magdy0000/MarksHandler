@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activitys.StartNewAssignment"></activity>
+        <activity android:name=".Activitys.StartNewAssignmentForAdmin"></activity>
         <activity android:name=".Activitys.StudentInfo" />
         <activity android:name=".Activitys.StudentAttentList" />
         <activity android:name=".Activitys.StudentFinishAssi" />
@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activitys.Assignment" />
+        <activity android:name=".Activitys.AssignmentOfStudent" />
         <activity android:name=".Activitys.SubjectDetilsActivity" />
         <activity android:name=".Activitys.Admin" />
         <activity android:name=".Activitys.MainActivity" />

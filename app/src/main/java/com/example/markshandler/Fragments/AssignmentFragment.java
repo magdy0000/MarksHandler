@@ -61,10 +61,14 @@ public class AssignmentFragment extends Fragment {
                 if (position == 0) {
                     Intent go = new Intent(getActivity(), StudentFinishAssi.class);
                     startActivity(go);
+                    getActivity().finish();
+
                 }
+
 
                 else if (position == 1) {
                     startActivity(new Intent(getActivity(), StudentFinishAssi.class));
+                    getActivity().finish();
 
                 }
             }
