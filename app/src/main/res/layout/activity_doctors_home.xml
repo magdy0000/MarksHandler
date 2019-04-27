@@ -22,6 +22,8 @@
     <EditText
         android:paddingLeft="5dp"
         android:textColor="#fff"
+        android:hint="   Enter lecture id "
+        android:textColorHint="@color/whit"
         android:id="@+id/code_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/back_ground_regist_button"
-        android:text="get "
+        android:text="start "
 
 
         />

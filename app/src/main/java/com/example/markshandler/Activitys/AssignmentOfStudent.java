@@ -9,12 +9,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.markshandler.Adapters.AdapterOfListOfAssignment;
+import com.example.markshandler.Adapters.Adapteradmin;
+import com.example.markshandler.Models.ModelOfAssignmentList;
 import com.example.markshandler.Models.ModelOfDataOfAssignmentOfAdmin;
 import com.example.markshandler.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,18 +34,17 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AssignmentOfStudent extends AppCompatActivity {
 
-    Button upload , choosepdf;
-
+     public static String assignmentName  ;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-    String text , image ;
-    StorageReference reference ,  ref2 ;
-    TextView textViewOfDesc  ;
-    ImageView photoOfAssignment ;
-    Uri filePath ;
+   ListView listView  ;
+   ArrayList<ModelOfAssignmentList> list  = new ArrayList<>();
+
+   AdapterOfListOfAssignment adapter ;
 
 
 
@@ -48,150 +52,58 @@ public class AssignmentOfStudent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment);
+        listView =findViewById(R.id.listOfAssignment);
 
-        upload = findViewById(R.id.upload_pic);
-        textViewOfDesc =findViewById(R.id.text_of_assignment_desc);
-        photoOfAssignment =findViewById(R.id.photo_of_assignment);
-        choosepdf = findViewById(R.id.choosePdf);
+        adapter = new AdapterOfListOfAssignment(this , R.layout.item_of_list_of_assignment ,list );
+        listView.setAdapter(adapter);
 
-        choosepdf.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                choosepdf();
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                
+              assignmentName = list.get(position).getTittle();
+              
+              
+
+
+                if(list.get(position).getCheck().equals("false")) {
+
+                    startActivity(new Intent(AssignmentOfStudent.this, AssignmentValueForStudent.class));
+                }else {
+                    Toast.makeText(AssignmentOfStudent.this, "Assignment is not avalable now ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        getDataOfAssignmentFromFireBase();
 
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadPdf();
-            }
-        });
-
-    }
-
-
-    private void getDataOfAssignmentFromFireBase (){
-        ref.child("OS Assignment").child("desc").addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("OS Assignment Tittle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 text = dataSnapshot.getValue().toString();
-
-                 textViewOfDesc.setText(text);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        ref.child("OS Assignment").child("photo").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                image = dataSnapshot.getValue().toString();
-                Toast.makeText(AssignmentOfStudent.this, image+"", Toast.LENGTH_SHORT).show();
-                Glide.with(AssignmentOfStudent.this).load(image).into(photoOfAssignment);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
-
-    private void choosepdf(){
-
-        Intent in = new Intent();
-        in.setAction(Intent.ACTION_GET_CONTENT);
-        in.setType("application/pdf");
-        startActivityForResult(in,1);
-
-
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null )
-        {
-
-
-            filePath = data.getData();
-
-        }
-
-    }
-
-    private void uploadPdf() {
-
-
-        if (filePath != null ) {
-
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-
-            ref2 = reference.child("OS Assignment Answer" + "userId");
-
-            ref2.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-
-
-                    final StorageReference filePath = ref2;
-
-                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-
-                            String finalpath = uri.toString();
-
-
-
-                            ref.child("OS Answer Assignment Students ").setValue(finalpath);
-                            finish();
-                            Intent m = new Intent(AssignmentOfStudent.this, Admin.class);
-                            startActivity(m);
-
-
-
-                        }
-                    });
-
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    list.add(dataSnapshot1.getValue(ModelOfAssignmentList.class));
 
                 }
-            })
-                    //-------------------------------------------=---------==-=--==========================================
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
 
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                        }
-                    });
 
-        }
+
+
+
+
+
+
     }
+
 
 
 

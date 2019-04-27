@@ -28,6 +28,7 @@ public class Admin extends AppCompatActivity {
         ass=findViewById(R.id.assBtnFrag);
         att=findViewById(R.id.attBtnFrag);
         lec=findViewById(R.id.lecBtnFrag);
+
         fragment = new StartFragment();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.doctorFra, fragment, "Med_Data_Fragment");

@@ -16,11 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.markshandler.Fragments.OldLecturesFragment;
+import com.example.markshandler.Models.ModelOfAssignmentList;
 import com.example.markshandler.Models.ModelOfCountAttend;
 import com.example.markshandler.Models.ModelOfDataOfAssignmentOfAdmin;
+import com.example.markshandler.Models.ModelOfUploadAssignment;
 import com.example.markshandler.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +39,12 @@ import java.io.IOException;
 
 public class StartNewAssignmentForAdmin extends AppCompatActivity {
 
-    Button uploadPic,uploadAssi;
-    Uri filePath ;
-    ImageView imageView ;
-    StorageReference reference ,  ref ;
-    EditText assimnentDisc ;
-  
+    EditText assignmentTittle , question  , firsrAnswer , secondAnswer  , thirdAnswer  , fourthAnswer , rightAnswer  ;
+
+
+   ModelOfUploadAssignment upload  = new ModelOfUploadAssignment();
+
+   int count = 0  ;
     
     DatabaseReference referenceData  = FirebaseDatabase.getInstance().getReference();
     @Override
@@ -48,142 +52,115 @@ public class StartNewAssignmentForAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_new_assignment);
 
-        uploadAssi=findViewById(R.id.upload_the_assi_btn);
-        uploadPic=findViewById(R.id.upload_pic_new_assi_btn);
-        imageView = findViewById(R.id.image);
-        assimnentDisc = findViewById(R.id.edittext_new_assignment);
+        definition();
 
 
-        reference = FirebaseStorage.getInstance().getReference();
 
-        uploadPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              chooseImage();
-            }
-        });
 
-        uploadAssi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               uploadImage();
-            }
-        });
+
     }
 
 
-    public  void chooseImage (){
+    private void definition (){
 
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, 2);
+        assignmentTittle = findViewById(R.id.edittext_assignmentTittle);
+        question = findViewById(R.id.edittext_question);
+        firsrAnswer = findViewById(R.id.firstAnswer);
+        secondAnswer = findViewById(R.id.secondAnswer);
+        thirdAnswer = findViewById(R.id.thirdAnswer)  ;
+        fourthAnswer = findViewById(R.id.fourthAnswer);
+        rightAnswer = findViewById(R.id.rightAnswer);
+
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 2 && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
+    private void uploadAssignment(){
 
 
-            filePath = data.getData();
+        upload.setQuestion(question.getText().toString().trim());
+        upload.setFirst(firsrAnswer.getText().toString().trim());
+        upload.setSecond(secondAnswer.getText().toString().trim());
+        upload.setFourth(fourthAnswer.getText().toString().trim());
+        upload.setThird(thirdAnswer.getText().toString().trim());
+        upload.setRightAnswer(rightAnswer.getText().toString());
 
-
-
-
-
-
-
-
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
+        referenceData.child("OS Assignment").child(assignmentTittle.getText().toString().trim()).child(count+"").setValue(upload)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(StartNewAssignmentForAdmin.this, "dskdkasndk", Toast.LENGTH_SHORT).show();
             }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+        });
+
+
+
+
+        ModelOfAssignmentList  data = new ModelOfAssignmentList();
+        data.setTittle(assignmentTittle.getText().toString().trim());
+        data.setCheck("false");
+        referenceData.child("OS Assignment Tittle").child(assignmentTittle.getText().toString().trim()).setValue(data);
+
+
+        count++ ;
+
+
+
+    }
+
+    private void checkIfFieldEmpty (){
+
+        String tittle  = assignmentTittle.getText().toString().trim() ;
+        String ques = question.getText().toString().trim() ;
+        String first  = firsrAnswer.getText().toString().trim();
+        String second = secondAnswer.getText().toString().trim();
+        String third = thirdAnswer.getText().toString().trim();
+        String forth = fourthAnswer.getText().toString().trim();
+        String right = rightAnswer.getText().toString().trim();
+
+
+        if (tittle.equals("")){
+            assignmentTittle.setError("Required");
+
+        }
+        else if (ques.equals("")){
+            question.setError("Required");
+
+        }
+       else if (first.equals("")){
+            firsrAnswer.setError("Required");
+
+
+        }else if (second.equals("")){
+
+           secondAnswer.setError("Required");
+
+        }else if(third.equals("")){
+
+           thirdAnswer.setError("Required");
+        }else if (forth.equals("")){
+           fourthAnswer.setError("Required");
+
+        }else if (right.equals("")){
+           rightAnswer.setError("Required");
+
+        }
+        else {
+            uploadAssignment();
+
+            question.setText("");
+            firsrAnswer.setText("");
+            secondAnswer.setText("");
+            thirdAnswer.setText("");
+            fourthAnswer.setText("");
+            rightAnswer.setText("");
         }
 
+
+
+
+
     }
-
-
-    private void uploadImage() {
-        
-      
-             if (filePath != null && !assimnentDisc.getText().toString().equals(null)) {
-                 
-                 final ProgressDialog progressDialog = new ProgressDialog(this);
-                 progressDialog.setTitle("Uploading...");
-                 progressDialog.show();
-
-                 ref = reference.child("OS/" + "assignmentPhoto");
-
-                 ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                     @Override
-                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                         progressDialog.dismiss();
-
-
-                         final StorageReference filePath = ref;
-
-                         filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                             @Override
-                             public void onSuccess(Uri uri) {
-
-                                 String finalpath = uri.toString();
-
-
-                                 ModelOfDataOfAssignmentOfAdmin model = new ModelOfDataOfAssignmentOfAdmin();
-
-                                 model.setDesc(assimnentDisc.getText().toString());
-                                 model.setPhoto(finalpath);
-                                 model.setCheck("true");
-
-                                 referenceData.child("OS Assignment").setValue(model);
-                                 finish();
-                                 Intent m = new Intent(StartNewAssignmentForAdmin.this, Admin.class);
-                                 startActivity(m);
-                                 Toast.makeText(StartNewAssignmentForAdmin.this, "Assignment is uploaded ", Toast.LENGTH_SHORT).show();
-                                 
-
-                             }
-                         });
-
-
-                     }
-                 })
-                         //-------------------------------------------=---------==-=--==========================================
-
-
-                         .addOnFailureListener(new OnFailureListener() {
-                             @Override
-                             public void onFailure(@NonNull Exception e) {
-                                 progressDialog.dismiss();
-
-                             }
-                         })
-                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                             @Override
-                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                 double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                         .getTotalByteCount());
-                                 progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                             }
-                         });
-
-             }
-         }
-         
-    
-
-   
-
-            
-   
 
     @Override
     public void onBackPressed() {
@@ -191,6 +168,12 @@ public class StartNewAssignmentForAdmin extends AppCompatActivity {
         Intent m = new Intent(this, Admin.class);
         startActivity(m);
 
+
+    }
+
+    public void upload(View view) {
+
+        checkIfFieldEmpty();
 
     }
 }

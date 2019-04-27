@@ -113,6 +113,8 @@ public class UserHome extends AppCompatActivity {
 
                     control1 = (String) dataSnapshot.getValue();
 
+
+
                     if (control1.equals("true")) {
 
                       ModelOfStudentAttend d = new ModelOfStudentAttend();

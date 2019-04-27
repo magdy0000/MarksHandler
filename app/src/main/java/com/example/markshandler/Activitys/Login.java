@@ -41,14 +41,14 @@ public class Login extends AppCompatActivity {
 
     }
     public void login(View view){
-        if (idlogin.getText().toString().equals("1")){
+        if (idlogin.getText().toString().equals("Amr")){
 
             Intent admin=new Intent(this,Admin.class);
             startActivity(admin);
 
         }
 
-        else if(idlogin.getText().toString().equals("2")){
+        else if(idlogin.getText().toString().equals("Ahmed")){
 
             Intent user=new Intent(this,MainActivity.class);
             startActivity(user);
