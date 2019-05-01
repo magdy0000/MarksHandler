@@ -30,7 +30,7 @@ public class SectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_lecture, container, false);
+        View view =inflater.inflate(R.layout.fragment_section, container, false);
 
         assignment=view.findViewById(R.id.assi_layout);
         attend=view.findViewById(R.id.atte_layout);
