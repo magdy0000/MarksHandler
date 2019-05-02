@@ -14,7 +14,7 @@
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_margin="10dp"
+       android:layout_marginBottom="10dp"
        android:gravity="center"
        android:layout_gravity="center_vertical"
        android:text="The Section"
@@ -29,7 +29,6 @@
        android:id="@+id/atte_layout_sec"
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:background="@color/DarkOrange"
        android:layout_height="0dp"
        android:layout_margin="10dp"
        android:layout_weight="1">
@@ -46,7 +45,7 @@
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_weight="1"
-          android:layout_margin="10dp"
+          android:background="@color/DarkOrange"
           android:gravity="center"
           android:layout_gravity="center_vertical"
           android:text="attendance"
@@ -62,7 +61,6 @@
        android:id="@+id/assi_layout_sec"
        android:layout_width="match_parent"
        android:orientation="vertical"
-       android:background="@color/DarkOrange"
        android:layout_height="0dp"
        android:layout_margin="10dp"
        android:layout_weight="1">
@@ -78,8 +76,8 @@
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_weight="1"
-          android:layout_margin="10dp"
           android:gravity="center"
+          android:background="@color/DarkOrange"
           android:text="Assignments"
           android:textSize="25sp"
           android:textColor="#000"

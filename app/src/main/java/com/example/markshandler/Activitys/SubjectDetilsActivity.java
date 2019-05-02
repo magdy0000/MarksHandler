@@ -22,10 +22,12 @@ public class SubjectDetilsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_detils);
+
+
         lec=findViewById(R.id.Lec_color);
         sec=findViewById(R.id.Sec_color);
 
-        fragment = new SectionFragment();
+        fragment = new LectureFragment();
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.user_fragment, fragment, "Med_Data_Fragment");
         transaction.commitNow();

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="Section"
+            android:enabled="false"
             android:text="Section"
             android:background="@color/DarkBlue"
             android:textSize="15sp"
@@ -57,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="1.5dp"
             android:layout_weight="1"
-            android:background="@color/LightOrange"
+            android:background="@color/whit"
             />
 
         <TextView
@@ -65,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="1.5dp"
             android:layout_weight="1"
-            android:background="@color/whit"
+            android:background="@color/LightOrange"
             />
 
     </LinearLayout>
