@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.markshandler.Fragments.AssignmentFragment;
 import com.example.markshandler.Fragments.OldLecturesFragment;
@@ -23,6 +24,7 @@ public class Admin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
 
 
         ass=findViewById(R.id.assBtnFrag);

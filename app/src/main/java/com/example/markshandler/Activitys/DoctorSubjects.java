@@ -22,6 +22,7 @@ public class DoctorSubjects extends AppCompatActivity {
     ArrayList<DoctorSubjectsModel> list = new ArrayList<>();
     AdapterDoctorSubjects adapter ;
     String [] data;
+    public  static  String subjectNameOfDoctor ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +166,31 @@ public class DoctorSubjects extends AppCompatActivity {
         adapter = new AdapterDoctorSubjects(this , R.layout.item_of_listview_doctor_subjects , list);
 
         listView.setAdapter(adapter);
+        listViewClick();
+    }
+
+    private void listViewClick() {
+
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //news and events
+                  subjectNameOfDoctor =  list.get(position).subject_text;
+                Intent go = new Intent(DoctorSubjects.this, Admin.class);
+                startActivity(go);
+                finish();
+
+
+                //about us
+
+            }
+        });
+
+
+
     }
 
 
