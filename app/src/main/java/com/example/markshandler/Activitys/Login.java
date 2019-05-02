@@ -16,6 +16,8 @@ public class Login extends AppCompatActivity {
     EditText passlogin;
     boolean finder=false;
     Button login;
+
+
     String [] first={"101","102","103","104","105","106","107","108","109","110"};
     String [] second={"201","202","203","204","205","206","207","208","209","210"};
     String [] third={"301","302","303","304","305","306","307","308","309","310"};
@@ -71,6 +73,7 @@ public class Login extends AppCompatActivity {
                if(idlogin.getText().toString().equals(first[i])){
                findId= idlogin.getText().toString();
                finder=true;
+
                Intent user = new Intent(this, MainActivity.class);
                startActivity(user);
                }

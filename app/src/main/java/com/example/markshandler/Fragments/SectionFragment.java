@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.markshandler.Activitys.AssignmentOfStudent;
@@ -32,21 +33,23 @@ public class SectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_section, container, false);
 
-        assignment=view.findViewById(R.id.assi_layout);
-        attend=view.findViewById(R.id.atte_layout);
+        assignment=view.findViewById(R.id.assi_layout_sec);
+        attend=view.findViewById(R.id.atte_layout_sec);
+
 
         assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AssignmentOfStudent.class);
+                Intent i = new Intent(getContext(), AssignmentOfStudent.class);
                 startActivity(i);
             }
         });
 
+
         attend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), UserHome.class);
+                Intent i = new Intent(getContext(), UserHome.class);
                 startActivity(i);
             }
         });

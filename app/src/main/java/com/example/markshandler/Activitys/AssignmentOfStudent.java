@@ -146,7 +146,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("OS Assignment Answer").child(assignmentName+"Answer").hasChild(Login.userID)) {
+                if (dataSnapshot.child("OS Assignment Answer").child(assignmentName+"Answer").hasChild("3")) {
 
 
                     Toast.makeText(AssignmentOfStudent.this, "You are already Answered", Toast.LENGTH_SHORT).show();

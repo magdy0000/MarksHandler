@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView ;
     ArrayList<modeluser> list = new ArrayList<>();
     Adapteruser adapter ;
+    public static String subjectName  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent go = new Intent(MainActivity.this, SubjectDetilsActivity.class);
                     startActivity(go);
                     finish();
+
                 }
                 //about us
                 else if (position == 1) {
