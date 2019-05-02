@@ -28,123 +28,123 @@ public class DoctorSubjects extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_subjects);
         switch (Login.idlogin.getText().toString()){
 
-            case "1001":
+            case "9001":
                 data=DoctorData.D1001;
                 break;
 
-            case "1002":
+            case "9002":
                 data=DoctorData.D1002;
                 break;
 
-            case "1003":
+            case "9003":
                 data=DoctorData.D1003;
                 break;
 
-            case "1004":
+            case "9004":
                 data=DoctorData.D1004;
                 break;
 
-            case "1005":
+            case "9005":
                 data=DoctorData.D1005;
                 break;
 
-            case "1006":
+            case "9006":
                 data=DoctorData.D1006;
                 break;
 
-            case "1007":
+            case "9007":
                 data=DoctorData.D1007;
                 break;
 
-            case "1008":
+            case "9008":
                 data=DoctorData.D1008;
                 break;
 
-            case "1009":
+            case "9009":
                 data=DoctorData.D1009;
                 break;
 
-            case "1010":
+            case "9010":
                 data=DoctorData.D1010;
                 break;
 
-            case "1011":
+            case "9011":
                 data=DoctorData.D1011;
                 break;
 
-            case "1012":
+            case "9012":
                 data=DoctorData.D1012;
                 break;
 
-            case "1013":
+            case "9013":
                 data=DoctorData.D1013;
                 break;
 
-            case "1014":
+            case "9014":
                 data=DoctorData.D1014;
                 break;
 
-            case "1015":
+            case "9015":
                 data=DoctorData.D1015;
                 break;
 
-            case "1016":
+            case "9016":
                 data=DoctorData.D1016;
                 break;
 
-            case "1017":
+            case "9017":
                 data=DoctorData.D1017;
                 break;
 
-            case "1018":
+            case "9018":
                 data=DoctorData.D1018;
                 break;
 
-            case "1019":
+            case "9019":
                 data=DoctorData.D1019;
                 break;
 
-            case "1020":
+            case "9020":
                 data=DoctorData.D1020;
                 break;
 
-            case "1021":
+            case "9021":
                 data=DoctorData.D1021;
                 break;
 
-            case "1022":
+            case "9022":
                 data=DoctorData.D1022;
                 break;
 
-            case "1023":
+            case "9023":
                 data=DoctorData.D1023;
                 break;
 
-            case "1024":
+            case "9024":
                 data=DoctorData.D1024;
                 break;
 
-            case "1025":
+            case "9025":
                 data=DoctorData.D1025;
                 break;
 
-            case "1026":
+            case "9026":
                 data=DoctorData.D1026;
                 break;
 
-            case "1027":
+            case "9027":
                 data=DoctorData.D1027;
                 break;
 
-            case "1028":
+            case "9028":
                 data=DoctorData.D1028;
                 break;
 
-            case "1029":
+            case "9029":
                 data=DoctorData.D1029;
                 break;
 
-            case "1030":
+            case "9030":
                 data=DoctorData.D1030;
                 break;
 

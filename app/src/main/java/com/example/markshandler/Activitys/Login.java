@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.markshandler.Helper.DoctorData;
 import com.example.markshandler.Helper.StudentsData;
 import com.example.markshandler.R;
 import com.google.firebase.database.DatabaseReference;
@@ -39,13 +42,8 @@ public class Login extends AppCompatActivity {
 
     }
     public void login(View view){
+
         String id= idlogin.getText().toString();
-
-        if(idlogin.getText().toString().equals("Amr")) {
-
-            Intent admin = new Intent(this, Admin.class);
-            startActivity(admin);
-        }
 
 
         char [] id1;
@@ -180,10 +178,31 @@ public class Login extends AppCompatActivity {
                idlogin.setError("Please make sure that a correct id");
        }
 
-     else
+
+
+     else if(id1[0]=='9')
          {
-           idlogin.setError("Please make sure that a correct id");
-       }
+             for(int i = 0; i < DoctorData.DoctorID.length; i++) {
+
+                 if(idlogin.getText().toString().equals(DoctorData.DoctorID[i])){
+                     userID= idlogin.getText().toString();
+                     userName=DoctorData.DoctorName[i];
+                     finder=true;
+                     Intent user = new Intent(this, DoctorSubjects.class);
+                     startActivity(user);
+                 }
+             }
+
+             if(finder==false)
+                 idlogin.setError("Please make sure that a correct id");
+
+
+         }
+
+        else
+            idlogin.setError("Please make sure that a correct id");
+
+
 
     }
 }
