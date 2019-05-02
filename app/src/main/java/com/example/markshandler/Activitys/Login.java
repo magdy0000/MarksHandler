@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.markshandler.Helper.StudentsData;
 import com.example.markshandler.R;
 import com.google.firebase.database.DatabaseReference;
@@ -14,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity {
 
-    EditText idlogin;
+    public static EditText idlogin;
     EditText passlogin;
     boolean finder=false;
     Button login;
