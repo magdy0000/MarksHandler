@@ -21,12 +21,13 @@ public class MainActivity extends AppCompatActivity {
     ListView listView ;
     ArrayList<modeluser> list = new ArrayList<>();
     Adapteruser adapter ;
-    public static String subjectName  ;
+    public static String subjectName   ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        subjectName = "OS" ;
 
         switch (Login.semester) {
 
@@ -218,18 +219,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //news and events
-                if (position == 0) {
+//              subjectName =  list.get(position).subject_text;
                     Intent go = new Intent(MainActivity.this, SubjectDetilsActivity.class);
                     startActivity(go);
                     finish();
 
-                }
-                //about us
-                else if (position == 1) {
-                    startActivity(new Intent(MainActivity.this, SubjectDetilsActivity.class));
-                    finish();
 
-                }
+                //about us
+
             }
         });
 
@@ -241,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i =new Intent(MainActivity.this,Login.class);
         startActivity(i);
+
     }
 
 }

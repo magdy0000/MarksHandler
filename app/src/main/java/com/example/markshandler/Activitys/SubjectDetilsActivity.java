@@ -1,5 +1,6 @@
 package com.example.markshandler.Activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,8 @@ public class SubjectDetilsActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     TextView lec;
     TextView sec;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,4 +55,16 @@ public class SubjectDetilsActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+
+
+        Intent m = new Intent(this,MainActivity.class);
+        startActivity(m);
+        finish();
+
+
+    }
+
+
 }

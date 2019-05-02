@@ -48,12 +48,6 @@ public class Login extends AppCompatActivity {
             startActivity(admin);
         }
 
-        else if(idlogin.getText().toString().equals("Ahmed")) {
-            Intent user = new Intent(this, MainActivity.class);
-            startActivity(user);
-            userID = "3";
-            userName = "Ahmed";
-        }
 
         char [] id1;
         id1=id.toCharArray();

@@ -31,7 +31,7 @@ public class StartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          View view = inflater.inflate(R.layout.fragment_start, container, false);
-        assignment=view.findViewById(R.id.assi_layout);
+        assignment=view.findViewById(R.id.assi_layout1);
         attend=view.findViewById(R.id.atte_layout);
 
         assignment.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +40,6 @@ public class StartFragment extends Fragment {
                 Intent i = new Intent(getActivity(), StartNewAssignmentForAdmin.class);
                 startActivity(i);
                 getActivity().finish();
-
 
             }
         });

@@ -47,6 +47,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
    AdapterOfListOfAssignment adapter ;
    int pos  ;
+   boolean clickOnTime  = true;
 
 
 
@@ -56,36 +57,71 @@ public class AssignmentOfStudent extends AppCompatActivity {
         setContentView(R.layout.activity_assignment);
         listView =findViewById(R.id.listOfAssignment);
 
+
+        Toast.makeText(this, MainActivity.subjectName+"", Toast.LENGTH_SHORT).show();
+
+
+
         adapter = new AdapterOfListOfAssignment(this , R.layout.item_of_list_of_assignment ,list );
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                
-              assignmentName = list.get(position).getTittle();
-              pos = position ;
-              checkIfChildIsFound();
-              
+
+                if (clickOnTime) {
 
 
+                    assignmentName = list.get(position).getTittle();
+                    pos = position;
+                    checkIfChildIsFound();
+                    clickOnTime = false ;
+
+
+
+
+                }
 
             }
         });
 
 
 
-         getDataAssignmentList();
+       ifHasChilde();
 
 
 
 
 
     }
+    private void ifHasChilde(){
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.hasChild(MainActivity.subjectName+" Assignment Tittle")) {
+
+
+                    getDataAssignmentList();
+
+
+                }else {
+                    Toast.makeText(AssignmentOfStudent.this, "No Assignments", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
     private void getDataAssignmentList(){
 
 
-        ref.child("OS Assignment Tittle").addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(MainActivity.subjectName+" Assignment Tittle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
@@ -113,7 +149,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child("OS Assignment Answer").hasChild(assignmentName + "Answer")) {
+                    if (dataSnapshot.child(MainActivity.subjectName+"Assignment Answer").hasChild(assignmentName + "Answer")) {
 
 
                         checkForStudentThatAlread();
@@ -123,6 +159,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
 
                             startActivity(new Intent(AssignmentOfStudent.this, AssignmentValueForStudent.class));
+                            finish();
 
                     }
                 }
@@ -146,7 +183,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("OS Assignment Answer").child(assignmentName+"Answer").hasChild("3")) {
+                if (dataSnapshot.child(MainActivity.subjectName+"Assignment Answer").child(assignmentName+"Answer").hasChild(Login.userID)) {
 
 
                     Toast.makeText(AssignmentOfStudent.this, "You are already Answered", Toast.LENGTH_SHORT).show();
@@ -155,7 +192,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
                 } else {
 
                         startActivity(new Intent(AssignmentOfStudent.this, AssignmentValueForStudent.class));
-
+                        finish();
 
 
                 }
