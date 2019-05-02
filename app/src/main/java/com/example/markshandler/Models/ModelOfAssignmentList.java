@@ -5,6 +5,8 @@ public class ModelOfAssignmentList {
     String tittle ;
     String check ;
 
+
+
     public String getCheck() {
         return check;
     }

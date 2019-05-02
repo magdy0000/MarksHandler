@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.markshandler.Adapters.AdapterOfListOfAssignment;
 import com.example.markshandler.Adapters.Adapteradmin;
+import com.example.markshandler.Models.DataControl;
 import com.example.markshandler.Models.ModelOfAssignmentList;
 import com.example.markshandler.Models.ModelOfDataOfAssignmentOfAdmin;
 import com.example.markshandler.R;
@@ -45,6 +46,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
    ArrayList<ModelOfAssignmentList> list  = new ArrayList<>();
 
    AdapterOfListOfAssignment adapter ;
+   int pos  ;
 
 
 
@@ -62,18 +64,25 @@ public class AssignmentOfStudent extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 
               assignmentName = list.get(position).getTittle();
+              pos = position ;
+              checkIfChildIsFound();
               
-              
 
 
-                if(list.get(position).getCheck().equals("false")) {
 
-                    startActivity(new Intent(AssignmentOfStudent.this, AssignmentValueForStudent.class));
-                }else {
-                    Toast.makeText(AssignmentOfStudent.this, "Assignment is not avalable now ", Toast.LENGTH_SHORT).show();
-                }
             }
         });
+
+
+
+         getDataAssignmentList();
+
+
+
+
+
+    }
+    private void getDataAssignmentList(){
 
 
         ref.child("OS Assignment Tittle").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -92,10 +101,71 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    private void checkIfChildIsFound(){
+
+        if(list.get(pos).getCheck().equals("false")) {
 
 
 
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("OS Assignment Answer").hasChild(assignmentName + "Answer")) {
 
+
+                        checkForStudentThatAlread();
+
+
+                    } else {
+
+
+                            startActivity(new Intent(AssignmentOfStudent.this, AssignmentValueForStudent.class));
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }else {
+
+
+                Toast.makeText(AssignmentOfStudent.this, "Assignment is not available now ", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    private void checkForStudentThatAlread (){
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("OS Assignment Answer").child(assignmentName+"Answer").hasChild(Login.userID)) {
+
+
+                    Toast.makeText(AssignmentOfStudent.this, "You are already Answered", Toast.LENGTH_SHORT).show();
+
+
+                } else {
+
+                        startActivity(new Intent(AssignmentOfStudent.this, AssignmentValueForStudent.class));
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 

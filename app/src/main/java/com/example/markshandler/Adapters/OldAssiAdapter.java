@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.markshandler.Models.ModelOfAssignmentList;
 import com.example.markshandler.Models.modelOldAssi;
 import com.example.markshandler.R;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class OldAssiAdapter extends ArrayAdapter {
 
-        ArrayList<modelOldAssi> mlist;
+        ArrayList<ModelOfAssignmentList> mlist;
 
         public OldAssiAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects) {
             super(context, resource, objects);
@@ -35,7 +36,7 @@ public class OldAssiAdapter extends ArrayAdapter {
             TextView textGrid = convertView.findViewById(R.id.old_ass);
 
 
-            textGrid.setText(mlist.get(position).textgrid);
+            textGrid.setText(mlist.get(position).getTittle());
 
 
             return convertView;

@@ -4,6 +4,7 @@ public class DataControl {
 
 
     String id  ;
+    String AttendControl ;
 
     public String getAttendControl() {
         return AttendControl;
@@ -13,7 +14,7 @@ public class DataControl {
         AttendControl = attendControl;
     }
 
-    String AttendControl ;
+
 
     public String getId() {
         return id;

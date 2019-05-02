@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.markshandler.Models.ModelOfStudendAssignmentAnswer;
 import com.example.markshandler.Models.modelDoneAssi;
 import com.example.markshandler.R;
 
@@ -17,7 +19,7 @@ public class AdapterDoneAssi extends ArrayAdapter {
 
 
 
-        ArrayList<modelDoneAssi> mlist;
+        ArrayList<ModelOfStudendAssignmentAnswer> mlist;
 
         public AdapterDoneAssi(@NonNull Context context, int resource, @NonNull ArrayList objects) {
             super(context, resource, objects);
@@ -33,10 +35,16 @@ public class AdapterDoneAssi extends ArrayAdapter {
 
             convertView = layoutInflater.inflate(R.layout.item_listview_doneassi, parent,false);
 
-            TextView textGrid = convertView.findViewById(R.id.done_ass);
+            TextView textName= convertView.findViewById(R.id.studentName);
+
+            TextView textId = convertView.findViewById(R.id.studentId);
+
+            TextView textScore = convertView.findViewById(R.id.studentScore);
 
 
-            textGrid.setText(mlist.get(position).textgrid);
+           textId.setText(mlist.get(position).getId());
+           textName.setText(mlist.get(position).getName());
+           textScore.setText(mlist.get(position).getScore()+"");
 
 
             return convertView;
