@@ -44,7 +44,7 @@ public class UserHome extends AppCompatActivity {
          ref.addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 if (dataSnapshot.child("OS").child(codeFormStudent.getText().toString().trim()).child(Login.userID).hasChild("checkOne")) {
+                 if (dataSnapshot.child(MainActivity.subjectName+" Attendance").child(codeFormStudent.getText().toString().trim()).child(Login.userID).hasChild("checkOne")) {
 
                      Toast.makeText(UserHome.this, "You are already attended", Toast.LENGTH_SHORT).show();
 
@@ -68,11 +68,13 @@ public class UserHome extends AppCompatActivity {
      }
     public void confirm(View view) {
 
+        if(!codeFormStudent.getText().toString().equals("")) {
+
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child("OS").hasChild(codeFormStudent.getText().toString().trim())) {
+                    if (dataSnapshot.child(MainActivity.subjectName + " Attendance").hasChild(codeFormStudent.getText().toString().trim())) {
 
 
                         checkOne();
@@ -93,7 +95,10 @@ public class UserHome extends AppCompatActivity {
             });
 
 
+        }else {
 
+             codeFormStudent.setError("Enter Lecture Code ");
+        }
     }
 
 
@@ -107,7 +112,7 @@ public class UserHome extends AppCompatActivity {
 
 
 
-            ref.child("OS Control").child(codeFormStudent.getText().toString().trim()).child("attendControl").addListenerForSingleValueEvent( new ValueEventListener() {
+            ref.child(MainActivity.subjectName+ " Control").child(codeFormStudent.getText().toString().trim()).child("attendControl").addListenerForSingleValueEvent( new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -125,7 +130,7 @@ public class UserHome extends AppCompatActivity {
 
 
 
-                        ref.child("OS").child(codeFormStudent.getText().toString().trim()).child(Login.userID).setValue(d);
+                        ref.child(MainActivity.subjectName+" Attendance").child(codeFormStudent.getText().toString().trim()).child(Login.userID).setValue(d);
                      count();
 
 
@@ -147,7 +152,7 @@ public class UserHome extends AppCompatActivity {
     private void count2 (){
 
 
-        ref.child("OS Count").child("count").child(Login.userID).child("count").addListenerForSingleValueEvent( new ValueEventListener() {
+        ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).child("count").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -166,7 +171,7 @@ public class UserHome extends AppCompatActivity {
                 d.setUserName(Login.userName);
                 d.setCount(y);
 
-              ref.child("OS Count").child("count").child(Login.userID).setValue(d);
+              ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).setValue(d);
 
             }
 
@@ -183,7 +188,7 @@ public class UserHome extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("OS Count").child("count").hasChild(Login.userID)) {
+                if (dataSnapshot.child(MainActivity.subjectName+" Count").child("count").hasChild(Login.userID)) {
 
 
 
@@ -195,8 +200,8 @@ public class UserHome extends AppCompatActivity {
                 } else {
 
 
-                    ref.child("OS Count").child("count").child(Login.userID).child("count").setValue("1");
-                    ref.child("OS Count").child("count").child(Login.userID).child("userName").setValue(Login.userName);
+                    ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).child("count").setValue("1");
+                    ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).child("userName").setValue(Login.userName);
 
 
                 }

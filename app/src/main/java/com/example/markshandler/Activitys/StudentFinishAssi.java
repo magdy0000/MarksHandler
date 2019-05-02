@@ -8,19 +8,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.example.markshandler.Adapters.AdapterDoneAssi;
 import com.example.markshandler.Fragments.AssignmentFragment;
-import com.example.markshandler.Models.ModelOfAssignmentList;
 import com.example.markshandler.Models.ModelOfStudendAssignmentAnswer;
-import com.example.markshandler.Models.modelDoneAssi;
 import com.example.markshandler.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class StudentFinishAssi extends AppCompatActivity {
