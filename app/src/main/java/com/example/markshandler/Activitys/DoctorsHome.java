@@ -41,7 +41,7 @@ public class DoctorsHome extends AppCompatActivity {
 
         nameSubject = findViewById(R.id.name_subject);
 
-        nameSubject.setText("OS");
+        nameSubject.setText("OS Attendance");
 
         code = findViewById(R.id.code_editText);
         onAndOff = findViewById(R.id.on_of_btn);

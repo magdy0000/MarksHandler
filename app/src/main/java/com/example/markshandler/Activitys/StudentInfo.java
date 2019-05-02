@@ -40,13 +40,13 @@ public class StudentInfo extends AppCompatActivity {
 
 
                 ref.child("OS Count").child("count").child(StudentAttentList.userid).child("count").setValue("0");
-                ref.child("OS").child(OldLecturesFragment.idLectures).child(StudentAttentList.userid).setValue(null);
+                ref.child("OS Attendance").child(OldLecturesFragment.idLectures).child(StudentAttentList.userid).setValue(null);
 
 
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child("OS").hasChild(OldLecturesFragment.idLectures)) {
+                        if (dataSnapshot.child("OS Attendance").hasChild(OldLecturesFragment.idLectures)) {
 
 
 
@@ -57,7 +57,7 @@ public class StudentInfo extends AppCompatActivity {
 
                         } else {
 
-                            ref.child("OS").child(OldLecturesFragment.idLectures).setValue("");
+                            ref.child("OS Attendance").child(OldLecturesFragment.idLectures).setValue("");
 
 
                         }

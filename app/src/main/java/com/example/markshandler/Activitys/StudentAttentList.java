@@ -106,7 +106,7 @@ public class StudentAttentList extends AppCompatActivity {
 
 
 
-        ref.child("OS").child(OldLecturesFragment.idLectures).addListenerForSingleValueEvent( new ValueEventListener() {
+        ref.child("OS Attendance").child(OldLecturesFragment.idLectures).addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

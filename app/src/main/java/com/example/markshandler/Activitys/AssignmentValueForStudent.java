@@ -59,7 +59,6 @@ public class AssignmentValueForStudent extends AppCompatActivity {
 
                  button.setText("finish");
 
-
              }
 
 
