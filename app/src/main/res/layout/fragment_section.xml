@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/DarkBlue"
+    android:background="@color/whit"
     android:padding="40dp"
     android:orientation="vertical"
     tools:context=".Fragments.SectionFragment">
@@ -19,7 +19,7 @@
        android:layout_gravity="center_vertical"
        android:text="The Section"
        android:textSize="30sp"
-       android:textColor="@color/whit"
+       android:textColor="@color/DarkBlue"
        android:textStyle="bold"
 
        />

@@ -10,6 +10,18 @@
     android:orientation="vertical"
     tools:context=".Activitys.Login">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-80dp"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:textColor="@color/whit"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:text="Marks Handlers"
+        />
+
     <EditText
         android:id="@+id/editText_id"
         android:layout_width="match_parent"
