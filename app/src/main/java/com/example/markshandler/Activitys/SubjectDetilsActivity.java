@@ -16,6 +16,7 @@ public class SubjectDetilsActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     TextView lec;
     TextView sec;
+    TextView subTittle  ;
 
 
     @Override
@@ -24,8 +25,9 @@ public class SubjectDetilsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subject_detils);
 
 
-        lec=findViewById(R.id.Lec_color);
-        sec=findViewById(R.id.Sec_color);
+       subTittle = findViewById(R.id.tittle);
+
+        subTittle.setText(MainActivity.subjectName);
 
         fragment = new LectureFragment();
         transaction = getSupportFragmentManager().beginTransaction();
@@ -33,30 +35,8 @@ public class SubjectDetilsActivity extends AppCompatActivity {
         transaction.commitNow();
     }
 
-    public void Section(View view) {
-        fragment = new SectionFragment();
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.user_fragment, fragment, "Med_Data_Fragment");
-        transaction.commitNow();
-
-        sec.setBackgroundResource(R.color.LightOrange);
-        lec.setBackgroundResource(R.color.whit);
 
 
-
-    }
-
-    public void Lecture(View view) {
-        fragment = new LectureFragment();
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.user_fragment, fragment, "Med_Data_Fragment");
-        transaction.commitNow();
-
-        lec.setBackgroundResource(R.color.LightOrange);
-        sec.setBackgroundResource(R.color.whit);
-
-
-    }
     @Override
     public void onBackPressed() {
 

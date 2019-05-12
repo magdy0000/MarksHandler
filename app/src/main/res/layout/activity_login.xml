@@ -19,7 +19,7 @@
         android:textColor="@color/whit"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:text="Marks Handlers"
+        android:text="Marks Handler"
         />
 
     <EditText
@@ -51,7 +51,7 @@
         android:layout_margin="20dp"
         android:background="@drawable/back_ground_regist_button"
         android:text="Login"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="20sp"
         android:onClick="login"
         />

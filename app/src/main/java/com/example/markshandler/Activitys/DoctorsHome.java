@@ -8,12 +8,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.markshandler.Models.DataControl;
 import com.example.markshandler.Models.DataId;
 import com.example.markshandler.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +33,9 @@ public class DoctorsHome extends AppCompatActivity {
 
      EditText code ;
 
+     LinearLayout parent ;
 
+      ProgressBar progressBar ;
 
      Button get , onAndOff ;
 
@@ -41,11 +49,14 @@ public class DoctorsHome extends AppCompatActivity {
 
         nameSubject = findViewById(R.id.name_subject);
 
-        nameSubject.setText("OS Attendance");
+        nameSubject.setText(DoctorSubjects.subjectNameOfDoctor);
 
         code = findViewById(R.id.code_editText);
         onAndOff = findViewById(R.id.on_of_btn);
         get = findViewById(R.id.get_btn);
+        progressBar = findViewById(R.id.progress);
+        parent = findViewById(R.id.parent);
+
 
 
 
@@ -56,7 +67,7 @@ public class DoctorsHome extends AppCompatActivity {
 
     private void setOnOffBtn(){
 
-        ref.child("OS Control").child(code.getText().toString().trim()).child("attendControl").addListenerForSingleValueEvent( new ValueEventListener() {
+        ref.child(DoctorSubjects.subjectNameOfDoctor+" Control").child(code.getText().toString().trim()).child("attendControl").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  control = (String) dataSnapshot.getValue();
@@ -81,9 +92,12 @@ public class DoctorsHome extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("OS Control").hasChild(code.getText().toString().trim())) {
+                if (dataSnapshot.child(DoctorSubjects.subjectNameOfDoctor+" Control").hasChild(code.getText().toString().trim())) {
 
                     setOnOffBtn();
+
+                    parent.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
 
 
 
@@ -94,10 +108,20 @@ public class DoctorsHome extends AppCompatActivity {
                     control.setId(code.getText().toString().trim());
                     control.setAttendControl("false");
 
-                    ref.child(nameSubject.getText().toString().trim()).child(code.getText().toString().trim()).setValue("");
-                    ref.child("OS Control").child(code.getText().toString().trim()).setValue(control);
+                    ref.child(DoctorSubjects.subjectNameOfDoctor+" Attendance").child(code.getText().toString().trim()).setValue("");
+                    ref.child(DoctorSubjects.subjectNameOfDoctor+" Control").child(code.getText().toString().trim()).setValue(control).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            parent.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
 
                     setOnOffBtn();
+
+
+
+
 
 
                 }
@@ -116,7 +140,7 @@ public class DoctorsHome extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("OS")) {
+                if (dataSnapshot.hasChild(DoctorSubjects.subjectNameOfDoctor+" Attendance")) {
 
 
                     check2();
@@ -124,7 +148,7 @@ public class DoctorsHome extends AppCompatActivity {
 
                 } else {
 
-                    ref.child("OS Control").setValue(null);
+                    ref.child(DoctorSubjects.subjectNameOfDoctor+" Control").setValue(null);
                       check2();
 
 
@@ -143,6 +167,8 @@ public class DoctorsHome extends AppCompatActivity {
 
     public void StartAtendance(View view) {
         if (!code.getText().toString().trim().equals("")) {
+            progressBar.setVisibility(View.VISIBLE);
+            parent.setVisibility(View.GONE);
             check3();
         }else {
             Toast.makeText(this, "please enter the code to start lecture", Toast.LENGTH_SHORT).show();
@@ -164,20 +190,47 @@ public class DoctorsHome extends AppCompatActivity {
    }
     public void AttendControl(View view) {
 
-
+        parent.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         if (control.equals("true")){
             onAndOff.setText("off");
             control = "false" ;
 
 
-            ref.child("OS Control").child(code.getText().toString().trim()).child("attendControl").setValue(control);
+            ref.child(DoctorSubjects.subjectNameOfDoctor+" Control").child(code.getText().toString().trim()).child("attendControl").setValue(control).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    parent.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    parent.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
 
 
         }else {
             onAndOff.setText("On");
             control = "true" ;
 
-            ref.child("OS Control").child(code.getText().toString().trim()).child("attendControl").setValue(control);
+            ref.child(DoctorSubjects.subjectNameOfDoctor+" Control").child(code.getText().toString().trim()).child("attendControl").setValue(control).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    parent.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    parent.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
 
         }
 

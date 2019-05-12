@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+
+<RelativeLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/DarkBlue"
-    tools:context=".Activitys.StartNewAssignmentForAdmin">
+    tools:context=".Activitys.StartNewAssignmentForAdmin"
+    >
+
+
+
+
+<ScrollView
+
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+
+   >
 
     <LinearLayout
+        android:id="@+id/parent1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -26,6 +40,8 @@
         />
 
     <EditText
+        android:ellipsize="end"
+        android:textColor="@color/whit"
         android:id="@+id/edittext_assignmentTittle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,13 +63,15 @@
             />
 
         <EditText
+            android:ellipsize="end"
             android:id="@+id/edittext_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Enter Tittle of Assignment "
+            android:hint="Enter the question"
             android:gravity="center"
             android:maxLines="1"
+            android:textColor="@color/whit"
             android:textColorHint="@color/whit"
             android:textSize="14sp"
             />
@@ -65,6 +83,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:textColor="@color/whit"
+                android:ellipsize="end"
                 android:hint="First Answer"
                 android:textSize="14sp"
                 android:textColorHint="@color/whit"
@@ -76,6 +96,8 @@
                 />
 
             <EditText
+                android:textColor="@color/whit"
+                android:ellipsize="end"
                 android:hint="Second Answer"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -95,8 +117,10 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:textColor="@color/whit"
                 android:hint="Third Answer"
                 android:textSize="14sp"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:textColorHint="@color/whit"
                 android:id="@+id/thirdAnswer"
@@ -106,6 +130,8 @@
                 />
 
             <EditText
+                android:textColor="@color/whit"
+                android:ellipsize="end"
                 android:hint="Fourth Answer"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -118,6 +144,8 @@
 
         </LinearLayout>
         <EditText
+            android:textColor="@color/whit"
+            android:inputType="number"
             android:id="@+id/rightAnswer"
             android:gravity="center"
             android:layout_gravity="center"
@@ -152,3 +180,11 @@
 
     </LinearLayout>
 </ScrollView>
+    <ProgressBar
+        android:id="@+id/progress1"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

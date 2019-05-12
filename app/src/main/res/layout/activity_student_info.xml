@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/number_attendance"
         android:text="Delete"
+        android:textColor="@color/whit"
         android:background="@drawable/back_ground_regist_button"
         android:layout_marginTop="30dp"
         android:id="@+id/delete_btn"

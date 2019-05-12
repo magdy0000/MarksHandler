@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,9 @@ import java.util.ArrayList;
 public class AssignmentOfStudent extends AppCompatActivity {
 
      public static String assignmentName  ;
+
+     ProgressBar progressBar  ;
+     LinearLayout parent ;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
    ListView listView  ;
@@ -56,9 +62,10 @@ public class AssignmentOfStudent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment);
         listView =findViewById(R.id.listOfAssignment);
+        parent  = findViewById(R.id.parent4);
+        progressBar= findViewById(R.id.progress4);
 
 
-        Toast.makeText(this, MainActivity.subjectName+"", Toast.LENGTH_SHORT).show();
 
 
 
@@ -74,8 +81,16 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
                     assignmentName = list.get(position).getTittle();
                     pos = position;
-                    checkIfChildIsFound();
                     clickOnTime = false ;
+                    openOrClosedCheck();
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                      clickOnTime  = true ;
+                        }
+                    },1000);
 
 
 
@@ -87,26 +102,52 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
 
 
-       ifHasChilde();
 
+        ifHasChilde();
 
 
 
 
     }
+    private void openOrClosedCheck(){
+        ref.child(MainActivity.subjectName+" Assignment Tittle").child(list.get(pos).getTittle()).child("check").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue().toString().equals("false")){
+
+                    checkIfChildIsFound();
+
+                }else {
+                    Toast.makeText(AssignmentOfStudent.this, "Assignment has been closed", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
     private void ifHasChilde(){
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.hasChild(MainActivity.subjectName+" Assignment Tittle")) {
 
-
                     getDataAssignmentList();
 
 
                 }else {
-                    Toast.makeText(AssignmentOfStudent.this, "No Assignments", Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(AssignmentOfStudent.this, "No Assignments", Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){}
+
                 }
             }
 
@@ -126,6 +167,8 @@ public class AssignmentOfStudent extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     list.add(dataSnapshot1.getValue(ModelOfAssignmentList.class));
+                    progressBar.setVisibility(View.GONE);
+                    parent.setVisibility(View.VISIBLE);
 
                 }
                 adapter.notifyDataSetChanged();
@@ -142,14 +185,14 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
     private void checkIfChildIsFound(){
 
-        if(list.get(pos).getCheck().equals("false")) {
+
 
 
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child(MainActivity.subjectName+"Assignment Answer").hasChild(assignmentName + "Answer")) {
+                    if (dataSnapshot.child(MainActivity.subjectName+" Assignment Answer").hasChild(assignmentName+"Answer")) {
 
 
                         checkForStudentThatAlread();
@@ -170,12 +213,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
                 }
             });
 
-        }else {
 
-
-                Toast.makeText(AssignmentOfStudent.this, "Assignment is not available now ", Toast.LENGTH_SHORT).show();
-
-        }
 
     }
 
@@ -183,7 +221,7 @@ public class AssignmentOfStudent extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(MainActivity.subjectName+"Assignment Answer").child(assignmentName+"Answer").hasChild(Login.userID)) {
+                if (dataSnapshot.child(MainActivity.subjectName+" Assignment Answer").child(assignmentName+"Answer").hasChild(Login.userID)) {
 
 
                     Toast.makeText(AssignmentOfStudent.this, "You are already Answered", Toast.LENGTH_SHORT).show();
@@ -210,6 +248,19 @@ public class AssignmentOfStudent extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+
+        Intent m = new Intent(this,SubjectDetilsActivity.class);
+        startActivity(m);
+        finish();
+
+
+    }
+
+
 
 
 

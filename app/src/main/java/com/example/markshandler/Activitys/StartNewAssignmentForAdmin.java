@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,17 +43,23 @@ import java.io.IOException;
 public class StartNewAssignmentForAdmin extends AppCompatActivity {
 
     EditText assignmentTittle , question  , firsrAnswer , secondAnswer  , thirdAnswer  , fourthAnswer , rightAnswer  ;
+    ProgressBar progressBar ;
+    LinearLayout parent ;
 
+    ModelOfUploadAssignment upload  = new ModelOfUploadAssignment();
 
-   ModelOfUploadAssignment upload  = new ModelOfUploadAssignment();
-
-   int count = 0  ;
-    
+    int count = 0  ;
     DatabaseReference referenceData  = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_new_assignment);
+        progressBar = findViewById(R.id.progress1);
+        parent = findViewById(R.id.parent1);
+
+
+
 
         definition();
 
@@ -86,11 +94,21 @@ public class StartNewAssignmentForAdmin extends AppCompatActivity {
         upload.setThird(thirdAnswer.getText().toString().trim());
         upload.setRightAnswer(rightAnswer.getText().toString());
 
-        referenceData.child("OS Assignment").child(assignmentTittle.getText().toString().trim()).child(count+"").setValue(upload)
+        referenceData.child(DoctorSubjects.subjectNameOfDoctor+" Assignment").child(assignmentTittle.getText().toString().trim()).child(count+"").setValue(upload)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(StartNewAssignmentForAdmin.this, "dskdkasndk", Toast.LENGTH_SHORT).show();
+
+                parent.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(StartNewAssignmentForAdmin.this, "Uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                parent.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(StartNewAssignmentForAdmin.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -103,7 +121,7 @@ public class StartNewAssignmentForAdmin extends AppCompatActivity {
         data.setCheck("false");
 
 
-        referenceData.child("OS Assignment Tittle").child(assignmentTittle.getText().toString().trim()).setValue(data);
+        referenceData.child(DoctorSubjects.subjectNameOfDoctor+" Assignment Tittle").child(assignmentTittle.getText().toString().trim()).setValue(data);
 
 
 
@@ -150,8 +168,15 @@ public class StartNewAssignmentForAdmin extends AppCompatActivity {
         }else if (right.equals("")){
            rightAnswer.setError("Required");
 
+        }else if (!right.equals("1") && !right.equals("2")&&!right.equals("3")&&!right.equals("4") ){
+
+           rightAnswer.setError("The Right Answer must be in between 1 to 4");
+
         }
         else {
+
+            parent.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
             uploadAssignment();
 
             question.setText("");
@@ -178,6 +203,7 @@ public class StartNewAssignmentForAdmin extends AppCompatActivity {
     }
 
     public void upload(View view) {
+
 
         checkIfFieldEmpty();
 

@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.markshandler.Activitys.DoctorSubjects;
 import com.example.markshandler.Activitys.DoctorsHome;
 import com.example.markshandler.Activitys.StartNewAssignmentForAdmin;
 import com.example.markshandler.R;
@@ -20,6 +22,7 @@ public class StartFragment extends Fragment {
 
     LinearLayout assignment;
     LinearLayout attend;
+
 
     public StartFragment() {
         // Required empty public constructor
@@ -33,6 +36,8 @@ public class StartFragment extends Fragment {
          View view = inflater.inflate(R.layout.fragment_start, container, false);
         assignment=view.findViewById(R.id.assi_layout1);
         attend=view.findViewById(R.id.atte_layout);
+
+
 
         assignment.setOnClickListener(new View.OnClickListener() {
             @Override

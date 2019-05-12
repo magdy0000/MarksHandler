@@ -1,11 +1,15 @@
 package com.example.markshandler.Activitys;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,6 +37,8 @@ public class AssignmentValueForStudent extends AppCompatActivity {
     Button button ;
     int counter = 0 ;
     int score = 0 ;
+    LinearLayout parent ;
+    ProgressBar progressBar ;
     int answerNr;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     ArrayList<ModelOfUploadAssignment> list = new ArrayList<>();
@@ -70,6 +76,8 @@ public class AssignmentValueForStudent extends AppCompatActivity {
 
 
     private void definition (){
+         parent = findViewById(R.id.parent3);
+         progressBar  = findViewById(R.id.progress3);
         textView = findViewById(R.id.question);
         radioGroup = findViewById(R.id.radio_group);
         rd1 = findViewById(R.id.radio_button1);
@@ -83,12 +91,16 @@ public class AssignmentValueForStudent extends AppCompatActivity {
 
 
     private void getData(){
-    ref.child("OS Assignment").child(AssignmentOfStudent.assignmentName).addListenerForSingleValueEvent(new ValueEventListener() {
+    ref.child(MainActivity.subjectName+" Assignment").child(AssignmentOfStudent.assignmentName).addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                 list.add(dataSnapshot1.getValue(ModelOfUploadAssignment.class));
                 setData();
+
+
+                progressBar.setVisibility(View.GONE);
+                parent.setVisibility(View.VISIBLE);
 
 
 
@@ -102,6 +114,11 @@ public class AssignmentValueForStudent extends AppCompatActivity {
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
+            progressBar.setVisibility(View.GONE);
+
+            parent.setVisibility(View.VISIBLE);
+            Toast.makeText(AssignmentValueForStudent.this, "Connection Error", Toast.LENGTH_SHORT).show();
         }
     });
 
@@ -123,11 +140,8 @@ public class AssignmentValueForStudent extends AppCompatActivity {
 
 
 
-        Toast.makeText(this,counter+ "contert", Toast.LENGTH_SHORT).show();
-         String right = String.valueOf(answerNr);
-         Toast.makeText(this, right+"radio", Toast.LENGTH_SHORT).show();
-         Toast.makeText(this, list.get(counter).getRightAnswer()+"", Toast.LENGTH_SHORT).show();
 
+         String right = String.valueOf(answerNr);
 
 
          if(list.get(counter).getRightAnswer().equals(right)){
@@ -166,10 +180,12 @@ public class AssignmentValueForStudent extends AppCompatActivity {
                      answer.setId(Login.userID);
                      answer.setName(Login.userName);
                      answer.setScore(score);
-                    ref.child("OS Assignment Answer").child(AssignmentOfStudent.assignmentName + "Answer").child(Login.userID).setValue(answer).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    ref.child(MainActivity.subjectName+" Assignment Answer").child(AssignmentOfStudent.assignmentName + "Answer").child(Login.userID).setValue(answer).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getApplicationContext(), "Your answer is uploaded", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AssignmentValueForStudent.this , AssignmentOfStudent.class);
+                            startActivity(intent);
                             finish();
                         }
                     });
@@ -189,10 +205,12 @@ public class AssignmentValueForStudent extends AppCompatActivity {
                 answer.setId(Login.userID);
                 answer.setName(Login.userName);
                 answer.setScore(score);
-                ref.child("OS Assignment Answer").child(AssignmentOfStudent.assignmentName + "Answer").child(Login.userID).setValue(answer).addOnCompleteListener(new OnCompleteListener<Void>() {
+                ref.child(MainActivity.subjectName+" Assignment Answer").child(AssignmentOfStudent.assignmentName + "Answer").child(Login.userID).setValue(answer).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getApplicationContext(), "Your answer is uploaded", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AssignmentValueForStudent.this , AssignmentOfStudent.class);
+                        startActivity(intent);
                         finish();
                     }
                 });
@@ -208,12 +226,50 @@ public class AssignmentValueForStudent extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("If you exit this Assignment your current score will upload");
+
+
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
 
 
-        finish();
-        Intent m = new Intent(this,AssignmentOfStudent.class);
-        startActivity(m);
+
+                checkAnswers();
+                answer.setId(Login.userID);
+                answer.setName(Login.userName);
+                answer.setScore(score);
+                ref.child(MainActivity.subjectName+" Assignment Answer").child(AssignmentOfStudent.assignmentName + "Answer").child(Login.userID).setValue(answer).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(), "Your answer is uploaded", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AssignmentValueForStudent.this , AssignmentOfStudent.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+
+            }
+        });
+
+
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+
+
 
 
     }

@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.markshandler.Activitys.DoctorSubjects;
 import com.example.markshandler.Activitys.StudentFinishAssi;
 import com.example.markshandler.Adapters.OldAssiAdapter;
 import com.example.markshandler.Models.DataId;
@@ -36,6 +38,7 @@ public class AssignmentFragment extends Fragment {
      DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     OldAssiAdapter adapter ;
 
+
     public static String assignmentName  ;
 
     public AssignmentFragment() {
@@ -51,7 +54,7 @@ public class AssignmentFragment extends Fragment {
         listView = view.findViewById(R.id.old_ass_listview);
 
 
-        dataOfAssignments();
+       checkForRerance();
         adapter = new OldAssiAdapter(getContext() , R.layout.item_of_listview_oldassi , list);
         listView.setAdapter(adapter);
 
@@ -82,15 +85,43 @@ public class AssignmentFragment extends Fragment {
 
     }
 
+
+    private void checkForRerance(){
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(DoctorSubjects.subjectNameOfDoctor+" Assignment Tittle")){
+                    dataOfAssignments();
+
+                }else {
+
+                    try {
+                        Toast.makeText(getContext(), "No Assignments", Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){}
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
     private void dataOfAssignments(){
 
 
-        ref.child("OS Assignment Tittle").addListenerForSingleValueEvent( new ValueEventListener() {
+        ref.child(DoctorSubjects.subjectNameOfDoctor+" Assignment Tittle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     list.add(dataSnapshot1.getValue(ModelOfAssignmentList.class));
+
+
+
 
                 }
                 adapter.notifyDataSetChanged();

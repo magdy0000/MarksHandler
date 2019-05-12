@@ -74,9 +74,10 @@ public class StudentFinishAssi extends AppCompatActivity {
 
     }
 
+
     private void getStudentData (){
 
-        ref.child("OS Assignment Answer").child(AssignmentFragment.assignmentName+"Answer").addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(DoctorSubjects.subjectNameOfDoctor+" Assignment Answer").child(AssignmentFragment.assignmentName+"Answer").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -100,7 +101,7 @@ public class StudentFinishAssi extends AppCompatActivity {
 
 
     private void getButtonControlData(){
-        ref.child("OS Assignment Tittle").child(AssignmentFragment.assignmentName).child("check").addValueEventListener(new ValueEventListener() {
+        ref.child(DoctorSubjects.subjectNameOfDoctor+" Assignment Tittle").child(AssignmentFragment.assignmentName).child("check").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  check = dataSnapshot.getValue().toString() ;
@@ -124,10 +125,10 @@ public class StudentFinishAssi extends AppCompatActivity {
 
     public void assignmentControl(View view) {
         if (check.equals("false")) {
-            ref.child("OS Assignment Tittle").child(AssignmentFragment.assignmentName).child("check").setValue("true");
+            ref.child(DoctorSubjects.subjectNameOfDoctor+" Assignment Tittle").child(AssignmentFragment.assignmentName).child("check").setValue("true");
         }else {
 
-            ref.child("OS Assignment Tittle").child(AssignmentFragment.assignmentName).child("check").setValue("false");
+            ref.child(DoctorSubjects.subjectNameOfDoctor+" Assignment Tittle").child(AssignmentFragment.assignmentName).child("check").setValue("false");
         }
 
     }

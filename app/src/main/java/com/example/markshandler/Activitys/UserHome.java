@@ -6,10 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.markshandler.Models.ModelOfStudentAttend;
 import com.example.markshandler.R;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +25,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserHome extends AppCompatActivity {
 
-    EditText codeFormStudent ;
+    private   EditText codeFormStudent ;
+    private TextView tittleSubject  ;
+
+    private ProgressBar progressBar ;
+    private LinearLayout parent ;
     
     boolean checks ;
 
@@ -29,9 +40,15 @@ public class UserHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attends_enter);
+      parent = findViewById(R.id.parent2);
+      progressBar = findViewById(R.id.progress2);
 
 
         codeFormStudent = findViewById(R.id.code_of_attend);
+        tittleSubject  = findViewById(R.id.tittle);
+
+        tittleSubject.setText(MainActivity.subjectName);
+
 
 
 
@@ -47,6 +64,9 @@ public class UserHome extends AppCompatActivity {
                  if (dataSnapshot.child(MainActivity.subjectName+" Attendance").child(codeFormStudent.getText().toString().trim()).child(Login.userID).hasChild("checkOne")) {
 
                      Toast.makeText(UserHome.this, "You are already attended", Toast.LENGTH_SHORT).show();
+
+                     progressBar.setVisibility(View.GONE);
+                     parent.setVisibility(View.VISIBLE);
 
 
 
@@ -68,23 +88,26 @@ public class UserHome extends AppCompatActivity {
      }
     public void confirm(View view) {
 
+
         if(!codeFormStudent.getText().toString().equals("")) {
 
-
+            parent.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child(MainActivity.subjectName + " Attendance").hasChild(codeFormStudent.getText().toString().trim())) {
-
+                    if (dataSnapshot.child(MainActivity.subjectName+" Attendance").hasChild(codeFormStudent.getText().toString().trim())) {
 
                         checkOne();
 
 
                     } else {
 
-                        Toast.makeText(UserHome.this, "wrong code", Toast.LENGTH_SHORT).show();
 
+                        Toast.makeText(UserHome.this,"wrong code", Toast.LENGTH_SHORT).show();
 
+                        parent.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
 
@@ -130,11 +153,35 @@ public class UserHome extends AppCompatActivity {
 
 
 
-                        ref.child(MainActivity.subjectName+" Attendance").child(codeFormStudent.getText().toString().trim()).child(Login.userID).setValue(d);
-                     count();
+                        ref.child(MainActivity.subjectName+" Attendance").child(codeFormStudent.getText().toString().trim()).child(Login.userID).setValue(d)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        progressBar.setVisibility(View.GONE);
+                                        parent.setVisibility(View.VISIBLE);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressBar.setVisibility(View.GONE);
+                                parent.setVisibility(View.VISIBLE);
+
+                            }
+                        }).addOnCanceledListener(new OnCanceledListener() {
+                            @Override
+                            public void onCanceled() {
+                                progressBar.setVisibility(View.GONE);
+                                parent.setVisibility(View.VISIBLE);
+
+                            }
+                        });
+                        count();
 
 
                     } else {
+
+                        progressBar.setVisibility(View.GONE);
+                        parent.setVisibility(View.VISIBLE);
 
                         Toast.makeText(UserHome.this, "Attendance has been close ", Toast.LENGTH_SHORT).show();
                     }
@@ -161,9 +208,9 @@ public class UserHome extends AppCompatActivity {
 
 
 
-              int z = Integer.parseInt(x);
+                int z = Integer.parseInt(x);
 
-              z = z + 1 ;
+                 z = z + 1 ;
                 String y = String.valueOf(z);
 
                 ModelOfStudentAttend d = new ModelOfStudentAttend();
@@ -171,7 +218,15 @@ public class UserHome extends AppCompatActivity {
                 d.setUserName(Login.userName);
                 d.setCount(y);
 
-              ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).setValue(d);
+              ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).setValue(d).addOnCompleteListener(new OnCompleteListener<Void>() {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
+                      Intent intent  =new Intent(UserHome.this , SubjectDetilsActivity.class );
+                      startActivity(intent);
+                      finish();
+                      Toast.makeText(UserHome.this, "Your attendance has been taken ", Toast.LENGTH_SHORT).show();
+                  }
+              });
 
             }
 
@@ -199,9 +254,19 @@ public class UserHome extends AppCompatActivity {
 
                 } else {
 
+                    ModelOfStudentAttend d = new ModelOfStudentAttend();
 
-                    ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).child("count").setValue("1");
-                    ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).child("userName").setValue(Login.userName);
+                    d.setUserName(Login.userName);
+                    d.setCount("1");
+                    ref.child(MainActivity.subjectName+" Count").child("count").child(Login.userID).setValue(d).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Intent intent  =new Intent(UserHome.this , SubjectDetilsActivity.class );
+                            startActivity(intent);
+                            finish();
+                            Toast.makeText(UserHome.this, "Your attendance has been taken ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
 
                 }
@@ -226,13 +291,8 @@ public class UserHome extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-
-
-
-           finish();
-
-       Intent m = new Intent(this,Login.class);
+        finish();
+       Intent m = new Intent(this,SubjectDetilsActivity.class);
        startActivity(m);
 
 

@@ -18,6 +18,7 @@
         <activity android:name=".Activitys.StudentFinishAssi" />
         <activity android:name=".Activitys.DoctorsHome" />
         <activity android:name=".Activitys.UserHome" />
+        <activity android:name=".Activitys.AssignmentValueForStudent"></activity>
         <activity android:name=".Activitys.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

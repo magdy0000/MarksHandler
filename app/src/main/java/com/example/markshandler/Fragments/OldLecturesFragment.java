@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.markshandler.Activitys.DoctorSubjects;
 import com.example.markshandler.Activitys.StudentAttentList;
 import com.example.markshandler.Adapters.Adapteradmin;
 import com.example.markshandler.Models.DataId;
@@ -74,7 +75,46 @@ public class OldLecturesFragment extends Fragment {
 
 
 
-        ref.child("OS Control").addListenerForSingleValueEvent( new ValueEventListener() {
+
+
+
+
+       checkForRerance();
+
+
+
+
+
+        return view;
+    }
+
+    private void checkForRerance(){
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(DoctorSubjects.subjectNameOfDoctor+" Control")){
+                    getDataForLectrue();
+
+                }else {
+
+                    try {
+                        Toast.makeText(getActivity(), "No Lecture", Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){}
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void getDataForLectrue(){
+
+        ref.child(DoctorSubjects.subjectNameOfDoctor+" Control").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -102,15 +142,6 @@ public class OldLecturesFragment extends Fragment {
         });
 
 
-
-
-
-
-
-
-
-
-        return view;
     }
 
 }

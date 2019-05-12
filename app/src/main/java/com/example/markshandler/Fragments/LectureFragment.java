@@ -41,6 +41,7 @@ public class LectureFragment extends Fragment {
 
                 Intent i = new Intent(getActivity(), AssignmentOfStudent.class);
                 startActivity(i);
+                getActivity().finish();
 
             }
         });
@@ -50,6 +51,7 @@ public class LectureFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), UserHome.class);
                 startActivity(i);
+                getActivity().finish();
             }
         });
         return view;

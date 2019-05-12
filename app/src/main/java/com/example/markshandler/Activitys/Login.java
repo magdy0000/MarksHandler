@@ -32,7 +32,9 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         idlogin=findViewById(R.id.editText_id);
+
         passlogin=findViewById(R.id.editText_pass);
+
         login=findViewById(R.id.login);
 
 
@@ -41,6 +43,7 @@ public class Login extends AppCompatActivity {
 
 
     }
+
     public void login(View view){
 
         String id= idlogin.getText().toString();
@@ -87,8 +90,13 @@ public class Login extends AppCompatActivity {
            for(int i =0 ;i <StudentsData.third.length;i++) {
 
                if (idlogin.getText().toString().equals(StudentsData.third[i])) {
+
+
                    userID = idlogin.getText().toString();
                    userName=StudentsData.thirdnames[i];
+
+
+
                    finder=true;
                    Intent user = new Intent(this, MainActivity.class);
                    startActivity(user);
